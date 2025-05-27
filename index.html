@@ -2,19 +2,17 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>モグラたたきゲーム</title>
+  <title>3Dモグラたたき</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>🐹 モグラたたきゲーム</h1>
+  <h1>🐹 3D モグラたたき</h1>
   <p>スコア: <span id="score">0</span></p>
   <button id="startButton">スタート</button>
-  <div class="game">
-    <div class="hole" id="hole1"></div>
-    <div class="hole" id="hole2"></div>
-    <div class="hole" id="hole3"></div>
-  </div>
+  <div id="game-container"></div>
 
+  <!-- Three.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
