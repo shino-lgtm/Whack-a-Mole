@@ -33,7 +33,6 @@ function initThree() {
 
   animate();
 
-  // クリックイベント
   renderer.domElement.addEventListener("click", (event) => {
     const rect = renderer.domElement.getBoundingClientRect();
     const mouse = new THREE.Vector2(
