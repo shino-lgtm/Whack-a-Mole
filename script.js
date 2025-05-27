@@ -1,4 +1,4 @@
-// シーンの作成
+// シーン
 const scene = new THREE.Scene();
 
 // カメラ
@@ -6,25 +6,28 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 camera.position.z = 5;
 
 // レンダラー
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// ライト追加（これがないと真っ暗）
-const light = new THREE.PointLight(0xffffff, 1);
-light.position.set(5, 5, 5);
-scene.add(light);
+// 照明
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
 
-// 球体（モグラの代わり）
+const pointLight = new THREE.PointLight(0xffffff, 1);
+pointLight.position.set(10, 10, 10);
+scene.add(pointLight);
+
+// 3Dモグラ（ピンクの球）
 const geometry = new THREE.SphereGeometry(1, 32, 32);
 const material = new THREE.MeshStandardMaterial({ color: 0xff69b4 });
-const sphere = new THREE.Mesh(geometry, material);
-scene.add(sphere);
+const mole = new THREE.Mesh(geometry, material);
+scene.add(mole);
 
-// アニメーションループ
+// 回転アニメーション
 function animate() {
   requestAnimationFrame(animate);
-  sphere.rotation.y += 0.01;
+  mole.rotation.y += 0.01;
   renderer.render(scene, camera);
 }
 animate();
