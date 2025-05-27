@@ -1,13 +1,14 @@
 body {
-  text-align: center;
-  font-family: sans-serif;
-  background-color: #fdf0f5;
   margin: 0;
-  overflow: hidden;
+  padding: 0;
+  background-color: #fff0f5;
+  font-family: sans-serif;
+  text-align: center;
 }
 
 #game-container {
   width: 100vw;
   height: 60vh;
-  margin: 0 auto;
+  background-color: #f8f8ff;
+  margin-top: 10px;
 }
