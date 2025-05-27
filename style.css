@@ -1,0 +1,25 @@
+body {
+  text-align: center;
+  font-family: sans-serif;
+  background-color: #fdf0f5;
+}
+
+.game {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.hole {
+  width: 100px;
+  height: 100px;
+  background-color: #ddd;
+  margin: 10px;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+
+.mole {
+  background-color: #a52a2a;
+}
