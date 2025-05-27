@@ -19,7 +19,7 @@ function initThree() {
   container.appendChild(renderer.domElement);
 
   const light = new THREE.PointLight(0xffffff, 1);
-  light.position.set(5, 5, 5);
+  light.position.set(10, 10, 10);
   scene.add(light);
 
   for (let i = 0; i < 3; i++) {
@@ -32,6 +32,26 @@ function initThree() {
   }
 
   animate();
+
+  // クリックイベント
+  renderer.domElement.addEventListener("click", (event) => {
+    const rect = renderer.domElement.getBoundingClientRect();
+    const mouse = new THREE.Vector2(
+      ((event.clientX - rect.left) / rect.width) * 2 - 1,
+      -((event.clientY - rect.top) / rect.height) * 2 + 1
+    );
+
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(spheres);
+
+    if (intersects.length > 0 && intersects[0].object === activeSphere) {
+      score++;
+      scoreDisplay.textContent = score;
+      activeSphere.material.color.set(0xff69b4);
+      activeSphere = null;
+    }
+  });
 }
 
 function animate() {
@@ -48,39 +68,20 @@ function startGame() {
   setTimeout(() => {
     clearInterval(gameInterval);
     alert("ゲーム終了！スコア: " + score);
-  }, 30000); // 30秒で終了
+  }, 30000);
 }
 
 function showMole() {
   if (activeSphere) {
-    activeSphere.material.color.set(0xff69b4); // リセット
+    activeSphere.material.color.set(0xff69b4);
   }
 
   const index = Math.floor(Math.random() * spheres.length);
   activeSphere = spheres[index];
-  activeSphere.material.color.set(0xff0000); // 赤く
-
-  // クリックでヒット検出
-  renderer.domElement.onclick = (event) => {
-    const mouse = new THREE.Vector2(
-      (event.clientX / window.innerWidth) * 2 - 1,
-      -(event.clientY / window.innerHeight) * 2 + 1
-    );
-
-    const raycaster = new THREE.Raycaster();
-    raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(spheres);
-
-    if (intersects.length > 0 && intersects[0].object === activeSphere) {
-      score++;
-      scoreDisplay.textContent = score;
-      activeSphere.material.color.set(0xff69b4);
-      activeSphere = null;
-    }
-  };
+  activeSphere.material.color.set(0xff0000);
 }
 
-startButton.onclick = () => {
+startButton.addEventListener("click", () => {
   if (!renderer) initThree();
   startGame();
-};
+});
